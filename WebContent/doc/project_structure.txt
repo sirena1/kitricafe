@@ -1,0 +1,59 @@
+kitricafe
+  - src
+  	- com.kitri
+  		- action
+  			- Action.java (I)
+  		- factory
+  			- MemberActionFactory.java 
+  			- BoardActionFactory.java
+  		- util
+  			- DBConnection.java
+  			- DBClose.java
+  		
+  		- member.action
+  			- IdCheckAction.java
+  			- ZipSearchAction.java
+  			- RegisterAction.java
+  			- LoginAction.java
+  			- LogoutAction.java
+  			- MemberInfoAction.java
+  			- ModifyAction.java
+  			- DeleteAction.java
+  			
+  		- member.controller
+  			- MemberController.java(Servlet : /user)
+  			
+  		- member.model
+  			- MemberDto.java
+  			- MemberDetailDto.java
+  			
+  		- member.model.service
+  			- MemberService.java (I)
+  			- MemberServiceImpl.java
+  			
+  		- member.model.dao
+  			- MemberDao.java (I)
+  			- MemberDaoImpl.java
+  			
+  		- board.action
+  		- board.controller
+  		- board.model
+  		- board.model.service
+  		- board.model.dao
+  		
+  - webContent
+  	- doc
+  	- member
+  		- member.jsp
+  		- registerok.jsp
+  		- registerfail.jsp
+  		- login.jsp
+  		- loginok.jsp
+  		- loginfail.jsp
+  		- modify.jsp (스스로 할 것)
+  		
+  	- board
+  
+  
+  
+  
