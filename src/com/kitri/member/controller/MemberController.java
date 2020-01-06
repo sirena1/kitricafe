@@ -7,6 +7,7 @@ import javax.servlet.annotation.*;
 import javax.servlet.http.*;
 
 import com.kitri.factory.*;
+import com.kitri.util.*;
 
 
 @WebServlet("/user")
@@ -23,21 +24,17 @@ public class MemberController extends HttpServlet {
 		String path = "/index.jsp";
 		
 		if("mvjoin".equals(act)) {
-			response.sendRedirect(root + "/member/member.jsp");
+			MovePage.redirect(request, response, "/member/member.jsp");
 		} else if("mvlogin".equals(act)) {
-			response.sendRedirect(root + "/member/login.jsp");
+			MovePage.redirect(request, response, "/member/login.jsp");
 		} else if("register".equals(act)) {
 //			System.out.println(">>>>>>>>> " + request.getParameter("name"));
-			path = MemberActionFactory.getRegisterAction().execute(request, response);
-//			response.sendRedirect(root + path); //path : ok  또는 fail --- 어디든 갈 수 있다. memberDetailDto가 null값이 나온다. (프로젝트 full 경로 써주기)
-			RequestDispatcher dispatcher = request.getRequestDispatcher(path); //이 class 내에서만 이동 가능 (프로젝트 경로 x)
-			dispatcher.forward(request, response);
+			path = MemberActionFactory.getRegisterAction().execute(request, response);		
+			MovePage.forward(request, response, path);
 		} else if("idcheck".equals(act)) {
 			//DB 갔다오기
 			path = MemberActionFactory.getIdCheckAction().execute(request, response); 
-			//request에 담았으니까 forward
-			RequestDispatcher dispatcher = request.getRequestDispatcher(path); //이 class 내에서만 이동 가능 (프로젝트 경로 x)
-			dispatcher.forward(request, response);
+			MovePage.forward(request, response, path);
 		} else if("".equals(act)) {
 			
 		} else {

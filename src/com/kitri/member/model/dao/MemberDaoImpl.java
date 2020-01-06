@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.*;
 
 import com.kitri.member.model.*;
+import com.kitri.util.*;
 
 public class MemberDaoImpl implements MemberDao {
 	// 2.
@@ -29,7 +30,7 @@ public class MemberDaoImpl implements MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.12.65:1521:xe", "c##kitri", "kitri");
+			conn = DBConnection.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("select count(id) \n");
 			sql.append("from member \n");
@@ -43,16 +44,7 @@ public class MemberDaoImpl implements MemberDao {
 			cnt = 1; //에러 났을 때 대처할 수 있는 코드를 catch 블럭에 넣어주면 좋다.
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DBClose.close(conn, pstmt, rs);
 		}
 		return cnt;
 	}
@@ -68,7 +60,7 @@ public class MemberDaoImpl implements MemberDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.12.65:1521:xe", "c##kitri", "kitri");
+			conn = DBConnection.getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert all \n");
 			sql.append("	into member(id, name, pass, emailid, emaildomain, joindate) \n");
@@ -94,14 +86,7 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			DBClose.close(conn, pstmt);
 		}
 		return cnt;
 	}
