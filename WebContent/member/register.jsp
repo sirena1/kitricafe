@@ -76,7 +76,7 @@ try {
 
 if(cnt != 0) { //성공
 	response.sendRedirect(root + "/member/registerok.jsp?name=" + URLEncoder.encode(name, "utf-8") + "&id=" + id);
-} else { //시류ㅐ
+} else { //실패
 	response.sendRedirect(root + "/member/registerfail.jsp");
 }
 %>

@@ -22,7 +22,8 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public int idCheck(String id) {
-		return 0;
+		//dao에 일시키기
+		return MemberDaoImpl.getMemberDao().idCheck(id);
 	}
 
 	@Override

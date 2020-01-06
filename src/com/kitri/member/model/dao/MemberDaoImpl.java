@@ -5,25 +5,56 @@ import java.util.*;
 
 import com.kitri.member.model.*;
 
-public class MemberDaoImpl implements MemberDao{
-	//2.
+public class MemberDaoImpl implements MemberDao {
+	// 2.
 	private static MemberDao memberDao;
-	
+
 	static {
 		memberDao = new MemberDaoImpl();
 	}
-	
-	//1.
-	private MemberDaoImpl() {}
-	
-	//3.
+
+	// 1.
+	private MemberDaoImpl() {
+	}
+
+	// 3.
 	public static MemberDao getMemberDao() {
 		return memberDao;
 	}
-	
+
 	@Override
 	public int idCheck(String id) {
-		return 0;
+		int cnt = 1; // 부정적인 값(사용할 수 없다)을 주면 좋다. 0이 아닌... 만약 0인 경우에도 사용할 수 없다는 에러가 뜰 수 있기 때문에
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.12.65:1521:xe", "c##kitri", "kitri");
+			StringBuilder sql = new StringBuilder();
+			sql.append("select count(id) \n");
+			sql.append("from member \n");
+			sql.append("where id=? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			rs.next(); //단독.. 무조건 한번은 얻어오니까 100%로 하나의 값
+			cnt = rs.getInt(1);
+		} catch (Exception e) {
+			cnt = 1; //에러 났을 때 대처할 수 있는 코드를 catch 블럭에 넣어주면 좋다.
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cnt;
 	}
 
 	@Override
@@ -64,9 +95,9 @@ public class MemberDaoImpl implements MemberDao{
 			e.printStackTrace();
 		} finally {
 			try {
-				if(pstmt != null)
+				if (pstmt != null)
 					pstmt.close();
-				if(conn != null)
+				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
 				e.printStackTrace();

@@ -21,6 +21,7 @@ public class MemberController extends HttpServlet {
 		System.out.println("act >>>>>> " + act); 
 		
 		String path = "/index.jsp";
+		
 		if("mvjoin".equals(act)) {
 			response.sendRedirect(root + "/member/member.jsp");
 		} else if("mvlogin".equals(act)) {
@@ -31,8 +32,12 @@ public class MemberController extends HttpServlet {
 //			response.sendRedirect(root + path); //path : ok  또는 fail --- 어디든 갈 수 있다. memberDetailDto가 null값이 나온다. (프로젝트 full 경로 써주기)
 			RequestDispatcher dispatcher = request.getRequestDispatcher(path); //이 class 내에서만 이동 가능 (프로젝트 경로 x)
 			dispatcher.forward(request, response);
-		} else if("".equals(act)) {
-			
+		} else if("idcheck".equals(act)) {
+			//DB 갔다오기
+			path = MemberActionFactory.getIdCheckAction().execute(request, response); 
+			//request에 담았으니까 forward
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path); //이 class 내에서만 이동 가능 (프로젝트 경로 x)
+			dispatcher.forward(request, response);
 		} else if("".equals(act)) {
 			
 		} else {
