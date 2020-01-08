@@ -7,7 +7,7 @@ if(memberDetailDto != null) {
 %>
 <font size="15" color="steelblue"><%=memberDetailDto.getName()%>(<%=memberDetailDto.getId()%>)님 회원 가입을 축하합니다.</font><br>
 로그인 후 서비스를 이용할 수 있습니다.<br>
-<a href="<%=root%>/login/login.jsp">로그인</a>
+<a href="<%=root%>/user?act=mvlogin">로그인</a>
 <%
 } else {
 %>

@@ -51,7 +51,11 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDto login(String id, String pass) {
-		return null;
+		//dto역할을 할 수 있는 map (dto로도 할 수 있다. 나중에 게시판 등에서는 인자값을 두개 받을 수 없기 때문에 map 사용)
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", id);
+		map.put("userpwd", pass);
+		return MemberDaoImpl.getMemberDao().login(map);
 	}
 
 	@Override

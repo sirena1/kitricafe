@@ -3,10 +3,7 @@
 <%
 List<ZipCodeDto> list = (List<ZipCodeDto>) request.getAttribute("ziplist");
 %>
-
-{
-<!--자바스크립트 객체를 담기 -->
-"ziplist" : [
+{ "ziplist" : [
 <%
 if(list != null){
 	int len = list.size();

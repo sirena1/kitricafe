@@ -12,12 +12,12 @@ $(document).ready(function() {
          alert("비밀번호 입력!!!");
          return;
       } else {
-         $("#loginform").attr("action", "<%=root%>/login/login_process.jsp").submit();
+         $("#loginform").attr("action", "<%=root%>/user").submit();
       }
    });
    
-   $("#moveRegisterBtn").click(function() {
-      $(location).attr("href", "<%=root%>/member/member.jsp");
+   $("#moveRegisterBtn").click(function() 
+      $(location).attr("href", "<%=root%>/user?act=mvjoin");
    });
 });
 </script>
@@ -25,6 +25,7 @@ $(document).ready(function() {
    <div class="col-lg-6" align="center">
       <h2>로그인</h2>
       <form id="loginform" method="post" action="">
+     	 <input type="hidden" name="act" value="login">
          <div class="form-group" align="left">
             <label for="">아이디</label>
             <input type="text" class="form-control" id="id" name="id" placeholder="">

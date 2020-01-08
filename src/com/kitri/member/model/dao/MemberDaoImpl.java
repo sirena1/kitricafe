@@ -137,7 +137,37 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public MemberDto login(Map<String, String> map) {
+	public MemberDto login(Map<String, String> map) { //select 값이 여러개니까 return type을 MemberDto로 잡기
+		MemberDto memberDto = null;
+		//여기서 new 하지 않는다. 아이디와 비밀번호가 맞을 때만 생성
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select name, id, emailid, emaildomain \n");
+			sql.append("from member \n");
+			sql.append("where id = ? and pass = ?");
+			pstmt = conn.prepareStatement(sql.toString());
+			//물음표의 개수
+			pstmt.setString(1, map.get("userid"));
+			pstmt.setString(2, map.get("userpwd"));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				//얻어왔다면 그 때 new 하기
+				memberDto = new MemberDto();
+				memberDto.setId(rs.getString("id"));
+				memberDto.setName(rs.getString("name"));
+				memberDto.setEmailid(rs.getString("emailid"));
+				memberDto.setEmaildomain(rs.getString("emaildomain"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
 		return null;
 	}
 }

@@ -4,6 +4,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+	
+	var isIdCheck = false;
+	
 	$("#registerBtn").click(function() {
 		if($("#name").val() == "") {
 			alert("이름 입력!!!");
@@ -17,7 +20,11 @@ $(document).ready(function() {
 		} else if($("#pass").val() != $("#passcheck").val()) {
 			alert("비밀번호 확인!!!");
 			return;
-		} else {
+		} else if(!isIdCheck) {
+			alert("아이디 중복검사를 하세요!!!");
+			return; 
+		}
+		else {
 			$("#memberform").attr("action", "<%=root%>/user").submit();
 		}
 	});
@@ -39,9 +46,12 @@ $(document).ready(function() {
 				var returnid = data.searchid; //
 				var cnt = parseInt(data.idcnt);
 				if(cnt == 0){
+					isIdCheck = true;
 					$("#idresult").css("color","skyblue").html("<strong>" + returnid + "</strong>는 사용할 수 있습니다.");
 				} else {
+					isIdCheck = false;
 					$("#idresult").css("color","magenta").html("<strong>" + returnid + "</strong>는 사용할 수 없습니다.");
+			
 				}		
 			},
 			error : function() {
@@ -118,7 +128,7 @@ $(document).ready(function() {
 				<!--<button type="button" class="btn btn-primary" onclick="javascript:">우편번호</button>-->
 			</div>
 			<input type="text" class="form-control" id="address" name="address"
-				placeholder=""> <input type="text" class="form-control"
+				placeholder="" readonly="readonly"> <input type="text" class="form-control"
 				id="address_detail" name="address_detail" placeholder="">
 		</div>
 		<div class="form-group" align="center">

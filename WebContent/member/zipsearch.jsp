@@ -12,13 +12,37 @@ $(document).ready(function() {
 				data : {act : 'zipsearch', sdoro : doro}, 
 				dataType : 'json',
 				success : function(data) { //jason 
-					alert(data.ziplist[0].zipcode);
-					alert(data.ziplist[0].address);
+					/* alert(data.ziplist[0].zipcode);
+					alert(data.ziplist[0].address); */
+					var zlist = data.ziplist;
+					var len = zlist.length;
+					var list = ''; 
+					for(var i=0;i<len;i++){	
+					list +=	'<tr>';
+					list +=		'<td>' + zlist[i].zipcode + '</td>'
+					list += 	'<td><a href="#" onclick="zipput(\''+ zlist[i].zipcode + '\',\'' + zlist[i].address + '\');">';
+					list += zlist[i].address + '</a></td>'
+					list += '</tr>';
+					}
+					//html로 list를 집어넣어라
+					$("#zipcodeView").html(list);
 				}
 			});
 		}
 	});
 });
+
+function zipput(zipcode, address){
+	//내용 지우기
+	$("#zipcodeView").empty();
+	$("#doro").val('');
+	//모달창 default는 show <-> hide
+	$("#zipModal").modal('hide');
+	//클릭한 값을 입력하기
+	$("#zipcode").val(zipcode);
+	$("#address").val(address);
+	
+}
 
 </script>	
 	
@@ -52,7 +76,7 @@ $(document).ready(function() {
 								<th style="width: 600px;">주소</th>
 							</tr>
 						</thead>
-						<tbody id="zip_codeList"></tbody>
+						<tbody id="zipcodeView"></tbody>
 					</table>
 				</div>
 			</div>

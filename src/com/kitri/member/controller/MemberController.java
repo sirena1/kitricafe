@@ -40,8 +40,9 @@ public class MemberController extends HttpServlet {
 			path = MemberActionFactory.getZipSearchAction().execute(request, response); 
 			//가져갈 데이터가 있으면 forward
 			MovePage.forward(request, response, path);
-		} else if("".equals(act)) {
-			
+		} else if("login".equals(act)) {
+			path = MemberActionFactory.getLoginAction().execute(request, response); 
+			MovePage.forward(request, response, path);
 		} else if("".equals(act)) {
 			
 		} else if("".equals(act)) {
