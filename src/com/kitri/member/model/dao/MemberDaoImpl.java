@@ -168,6 +168,6 @@ public class MemberDaoImpl implements MemberDao {
 		} finally {
 			DBClose.close(conn, pstmt, rs);
 		}
-		return null;
+		return memberDto;
 	}
 }

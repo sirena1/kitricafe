@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>   
 <%@ include file="/template/top.jsp" %>
+<%
+Cookie cookie[] = request.getCookies();
+String saveid = "";
+String checkedid = "";
+if(cookie != null) {
+	int len = cookie.length;
+	for(int i=0;i<len;i++){
+		if(cookie[i].getName().equals("asid")){
+			//아이디 저장 성공
+			saveid = cookie[i].getValue();
+			checkedid = " checked='checked'";
+			break;
+		}
+	}
+}
+%>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#loginBtn").click(function() {
@@ -27,7 +43,7 @@ $(document).ready(function() {
 			<input type="hidden" name="act" value="login">
 			<div class="form-group" align="left">
 				<label for="">아이디</label>
-				<input type="text" class="form-control" id="id" name="id" placeholder="">
+				<input type="text" class="form-control" id="id" name="id" placeholder="" value="<%=saveid%>">
 			</div>
 			<div class="form-group" align="left">
 				<label for="">비밀번호</label>
@@ -35,7 +51,7 @@ $(document).ready(function() {
 			</div>
 			<div class="form-group" align="left">
 				<label for="">아이디저장</label>
-				<input type="checkbox" id="idsave" name="idsave" value="saveok">
+				<input type="checkbox" id="idsave" name="idsave" value="saveok" <%=checkedid%>>
 			</div>
 			<div class="form-group" align="center">
 				<button type="button" class="btn btn-warning" id="loginBtn">로그인</button>

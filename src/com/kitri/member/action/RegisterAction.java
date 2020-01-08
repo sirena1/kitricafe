@@ -38,7 +38,6 @@ public class RegisterAction implements Action{
 		} else {
 			path = "/member/registerfail.jsp";
 		}
-		
 		return path;
 	}
 }
