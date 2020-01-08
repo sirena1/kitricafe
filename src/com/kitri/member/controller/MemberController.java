@@ -14,7 +14,6 @@ import com.kitri.util.*;
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String root = request.getContextPath();
 		
@@ -43,10 +42,13 @@ public class MemberController extends HttpServlet {
 		} else if("login".equals(act)) {
 			path = MemberActionFactory.getLoginAction().execute(request, response); 
 			MovePage.forward(request, response, path);
-		} else if("".equals(act)) {
-			
-		} else if("".equals(act)) {
-			
+		} else if("logout".equals(act)) {
+			path = MemberActionFactory.getLogoutAction().execute(request, response); 
+			MovePage.forward(request, response, path);
+		} else if("maillist".equals(act)) {
+			path = "/member/maillist.jsp";
+//			MovePage.forward(request, response, path);
+			MovePage.redirect(request, response, path);
 		} else {
 			response.sendRedirect(root + path);
 		}

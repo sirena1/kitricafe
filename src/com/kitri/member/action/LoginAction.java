@@ -20,7 +20,10 @@ public class LoginAction implements Action{
 		
 		MemberDto memberDto = MemberServiceImpl.getMemberService().login(id, pass);
 		if (memberDto != null) {
-			
+//			request.setAttribute("userInfo", memberDto);
+			//로그인을 했는지 안했는지 판단의 근거인 session
+			HttpSession session = request.getSession();
+			session.setAttribute("userInfo", memberDto);
 			path = "/member/loginok.jsp";
 		} else {
 			path = "/member/loginfail.jsp";
