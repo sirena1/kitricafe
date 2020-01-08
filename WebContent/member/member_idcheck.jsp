@@ -34,17 +34,18 @@ $(document).ready(function() {
 			url : '<%=root%>/user', /*controller */
 			type : 'GET',
 			data : {act : 'idcheck', checkid : sid}, 
-			dataType : 'json',
-			success : function(data) { //json 
-				var returnid = data.searchid; //
-				var cnt = parseInt(data.idcnt);
+			dataType : 'text',
+			success : function(data) { //1,java7 or 0,java7
+				var result = data.split(",");
+				var cnt = parseInt(result[0]);
 				if(cnt == 0){
-					$("#idresult").css("color","skyblue").html("<strong>" + returnid + "</strong>는 사용할 수 있습니다.");
+					$("#idresult").css("color","skyblue").html("<strong>" + result[1] + "</strong>는 사용할 수 있습니다.");
 				} else {
-					$("#idresult").css("color","magenta").html("<strong>" + returnid + "</strong>는 사용할 수 없습니다.");
-				}		
+					$("#idresult").css("color","magenta").html("<strong>" + result[1] + "</strong>는 사용할 수 없습니다.");
+				}
 			},
 			error : function() {
+	
 			}
 		});
 			
@@ -127,6 +128,44 @@ $(document).ready(function() {
 		</div>
 	</form>
 </div>
+</div>
 
-<%@ include file="/template/bottom.jsp"%>
-<%@ include file="/member/zipsearch.jsp"%>
+<div id="zipModal" class="modal fade" role="dialog">
+	<h5 class="modal-title" id="myModalLabel">우편번호검색</h5>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header text-center">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				<form id="zip_codeForm">
+					<div align="center">
+						<label>도로명 주소검색</label>
+					</div>
+					<div class="input-group" align="left">
+						<input type="text" class="form-control" id="doro" name="doro"
+							placeholder="검색 할 도로명 입력(예: 구로디지털로, 여수울로)"> <span
+							class="input-group-btn"> <input type="submit"
+							class="btn btn-warning" value="검색" id="searchBtn">
+						</span>
+					</div>
+				</form>
+				<div style="width: 100%; height: 200px; overflow: auto">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th style="width: 150px;">우편번호</th>
+								<th style="width: 600px;">주소</th>
+							</tr>
+						</thead>
+						<tbody id="zip_codeList"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<%@ include file="/template/bottom.jsp"%>

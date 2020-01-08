@@ -28,7 +28,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public List<ZipCodeDto> zipSearch(String doro) {
-		return null;
+		return MemberDaoImpl.getMemberDao().zipSearch(doro);
 	}
 
 	@Override

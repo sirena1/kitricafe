@@ -51,9 +51,41 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<ZipCodeDto> zipSearch(String doro) {
-		return null;
+		List<ZipCodeDto> list = new ArrayList<ZipCodeDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = DBConnection.getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select 	new_post_code zipcode, sido_kor || ' ' || gugun_kor || ' ' ||  \n");
+			sql.append("	nvl(upmyon_kor, ' ')  || ' ' || doro_kor  || ' ' ||  \n");
+			sql.append("	case when building_refer_number != '0' \n");
+			sql.append("		then building_origin_number||'-'||building_refer_number  \n");
+			sql.append("		else trim(to_char(building_origin_number, '99999')) \n");
+			sql.append("	end  || ' ' || sigugun_building_name as address \n");
+			sql.append("from 	postcode \n");
+			sql.append("where 	doro_kor like '%'||?||'%' \n");
+			sql.append("or 	sigugun_building_name like '%'||?||'%' \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setString(1, doro);
+			pstmt.setString(2, doro);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				ZipCodeDto zipCodeDto = new ZipCodeDto();
+				zipCodeDto.setZipcode(rs.getString("zipcode"));
+				zipCodeDto.setAddress(rs.getString("address"));
+				
+				list.add(zipCodeDto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBClose.close(conn, pstmt, rs);
+		}
+		return list;
 	}
-
+	
 	@Override
 	public int register(MemberDetailDto memberDetailDto) {
 		int cnt = 0;

@@ -4,4 +4,4 @@
 String id = (String) request.getAttribute("searchid");
 String cnt = (String) request.getAttribute("idcount");
 %>
-{"searchid" : "<%=id%>", "idcnt" : "<%=cnt%>"}
+<%=cnt%>,<%=id%> 

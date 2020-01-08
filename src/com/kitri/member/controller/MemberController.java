@@ -24,6 +24,7 @@ public class MemberController extends HttpServlet {
 		String path = "/index.jsp";
 		
 		if("mvjoin".equals(act)) {
+			//단순이동은 redirect
 			MovePage.redirect(request, response, "/member/member.jsp");
 		} else if("mvlogin".equals(act)) {
 			MovePage.redirect(request, response, "/member/login.jsp");
@@ -35,6 +36,14 @@ public class MemberController extends HttpServlet {
 			//DB 갔다오기
 			path = MemberActionFactory.getIdCheckAction().execute(request, response); 
 			MovePage.forward(request, response, path);
+		} else if("zipsearch".equals(act)) {
+			path = MemberActionFactory.getZipSearchAction().execute(request, response); 
+			//가져갈 데이터가 있으면 forward
+			MovePage.forward(request, response, path);
+		} else if("".equals(act)) {
+			
+		} else if("".equals(act)) {
+			
 		} else if("".equals(act)) {
 			
 		} else {
