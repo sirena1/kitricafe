@@ -27,12 +27,12 @@ $(document).ready(function() {
 			alert("비밀번호 입력!!!");
 			return;
 		} else {
-			$("#loginform").attr("action", "<%=root%>/user").submit();
+			$("#loginform").attr("action", "${root}/user").submit();
 		}
 	});
 	
 	$("#moveRegisterBtn").click(function() {
-		$(location).attr("href", "<%=root%>/user?act=mvjoin");
+		$(location).attr("href", "${root}/user?act=mvjoin");
 	});
 });
 </script>

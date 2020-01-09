@@ -5,7 +5,7 @@
 MemberDto memberDto = (MemberDto) session.getAttribute("userInfo");
 if(memberDto != null) {
 %>
-<br><a href="<%=root%>/user?act=logout">로그아웃</a>
+<br><a href="${root}/user?act=logout">로그아웃</a>
 <br>
 <font size="15" color="darkgray"><%=memberDto.getName()%>(<%=memberDto.getId()%>)님 메일 목록입니다.</font><br>
 10. 안녕하세요1.<br>
@@ -16,7 +16,7 @@ if(memberDto != null) {
 %>
 <script>
 alert("로그인 후 서비스를 이용할 수 있습니다.");
-$(location).attr("href", "<%=root%>/user?act=mvlogin");
+$(location).attr("href", "${root}/user?act=mvlogin");
 </script>
 <%	
 }

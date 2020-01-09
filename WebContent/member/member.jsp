@@ -25,7 +25,7 @@ $(document).ready(function() {
 			return; 
 		}
 		else {
-			$("#memberform").attr("action", "<%=root%>/user").submit();
+			$("#memberform").attr("action", "${root}/user").submit();
 		}
 	});
 	
@@ -38,7 +38,7 @@ $(document).ready(function() {
 		} else {
 			//서버랑 통신해야 하는 부분
 			$.ajax({
-			url : '<%=root%>/user', /*controller */
+			url : '${root}/user', /*controller */
 			type : 'GET',
 			data : {act : 'idcheck', checkid : sid}, 
 			dataType : 'json',

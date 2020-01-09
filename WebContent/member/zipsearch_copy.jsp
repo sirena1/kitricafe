@@ -7,7 +7,7 @@ $(document).ready(function() {
 		if(doro.length != 0){
 			$.ajax({
 				//에러 무시해도 괜찮음--> 정상작동 된다...
-				url : '<%=root%>/user', /*controller */
+				url : '${root}/user', /*controller */
 				type : 'GET',
 				data : {act : 'zipsearch', sdoro : doro}, 
 				dataType : 'json',

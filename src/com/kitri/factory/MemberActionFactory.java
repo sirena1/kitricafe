@@ -55,6 +55,5 @@ public class MemberActionFactory {
 
 	public static Action getLogoutAction() {
 		return logoutAction;
-	}
-	
+	}	
 }

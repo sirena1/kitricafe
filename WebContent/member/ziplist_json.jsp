@@ -1,22 +1,16 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, com.kitri.member.model.ZipCodeDto"%>
-<%
-List<ZipCodeDto> list = (List<ZipCodeDto>) request.getAttribute("ziplist");
-%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 { "ziplist" : [
-<%
-if(list != null){
-	int len = list.size();
-	for(int i=0;i<len;i++) {
-		ZipCodeDto zipCodeDto = list.get(i);
-%>		
-{"zipcode" : "<%=zipCodeDto.getZipcode()%>", "address" : "<%=zipCodeDto.getAddress()%>"}
- <%
- 		if(i != len -1) /* 마지막에 , 붙이지 않기 */
- 			out.print(",");
-	}
-}
- %>
+<c:if test="${ziplist != null }">
+	<c:forEach var="zipCodeDto" varStatus="i" items="${ziplist }">
+		{"zipcode" : "${zipCodeDto.zipcode}", "address" : "${zipCodeDto.address}"}
+ 			<c:if test="${i.index != ziplist.size() - 1}">
+ 			,
+ 			</c:if>
+ 	</c:forEach>
+ </c:if>
  			 ]
 }
     
